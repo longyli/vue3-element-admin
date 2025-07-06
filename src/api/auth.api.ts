@@ -1,22 +1,30 @@
 import request from "@/utils/request";
 
-const AUTH_BASE_URL = "/api/v1/auth";
 
 const AuthAPI = {
   /** 登录接口*/
   login(data: LoginFormData) {
     const formData = new FormData();
-    formData.append("username", data.username);
+    formData.append("country", data.country);
+    formData.append("user", data.telephone);
     formData.append("password", data.password);
-    formData.append("captchaKey", data.captchaKey);
-    formData.append("captchaCode", data.captchaCode);
+
     return request<any, LoginResult>({
-      url: `${AUTH_BASE_URL}/login`,
-      method: "post",
-      data: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
+      url: `wxapp.php?controller=user.weblogin_do`,
+      method: "get",
+      params: {
+        'country':data.country,
+        'user':data.telephone,
+        'passwd':data.password
       },
+    });
+  },
+
+  check_login(token){
+    return request({
+      url: `wxapp.php?controller=user.check_login`,
+      method: "get",
+      params: {token}
     });
   },
 
@@ -35,8 +43,8 @@ const AuthAPI = {
   /** 注销登录接口 */
   logout() {
     return request({
-      url: `${AUTH_BASE_URL}/logout`,
-      method: "delete",
+      url: `wxapp.php?controller=user.logout`,
+      method: "get"
     });
   },
 
@@ -53,8 +61,9 @@ export default AuthAPI;
 
 /** 登录表单数据 */
 export interface LoginFormData {
+  country: string
   /** 用户名 */
-  username: string;
+  telephone: string;
   /** 密码 */
   password: string;
   /** 验证码缓存key */

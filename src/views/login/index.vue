@@ -9,7 +9,7 @@
       </el-tooltip>
       <el-tooltip :content="t('login.languageToggle')" placement="left">
         <CommonWrapper>
-          <LangSelect size="text-20px" />
+          <LangSelect size="text-20px"  />
         </CommonWrapper>
       </el-tooltip>
     </div>
@@ -19,15 +19,7 @@
         class="p-4xl h-full w-full sm:w-450px border-rd-10px sm:h-680px shadow-[var(--el-box-shadow-light)] backdrop-blur-3px"
       >
         <div w-full flex flex-col items-center>
-          <!-- logo -->
-          <el-image :src="logo" style="width: 84px" />
 
-          <!-- 标题 -->
-          <h2>
-            <el-badge :value="`v ${defaultSettings.version}`" type="success">
-              {{ defaultSettings.title }}
-            </el-badge>
-          </h2>
 
           <!-- 组件切换 -->
           <transition name="fade-slide" mode="out-in">

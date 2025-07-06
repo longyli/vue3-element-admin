@@ -10,7 +10,8 @@ export function setupPermission() {
 
   router.beforeEach(async (to, from, next) => {
     NProgress.start();
-
+    next();
+    /**
     const isLogin = !!getAccessToken(); // 判断是否登录
     if (isLogin) {
       if (to.path === "/login") {
@@ -56,6 +57,7 @@ export function setupPermission() {
         NProgress.done();
       }
     }
+     **/
   });
 
   // 后置守卫，保证每次路由跳转结束时关闭进度条

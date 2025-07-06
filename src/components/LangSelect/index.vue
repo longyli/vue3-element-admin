@@ -1,6 +1,6 @@
 <template>
   <el-dropdown trigger="click" @command="handleLanguageChange">
-    <div class="i-svg:language" :class="size" />
+    <el-icon><ElemeFilled /></el-icon>
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item

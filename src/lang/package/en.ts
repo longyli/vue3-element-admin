@@ -18,8 +18,11 @@ export default {
     rememberMe: "Remember Me",
     forgetPassword: "Forget Password?",
     message: {
+      telephone: {
+        required: "Please enter telephone",
+      },
       username: {
-        required: "Please enter Username",
+        required: "Please enter Name",
       },
       password: {
         required: "Please enter Password",

@@ -1,93 +1,347 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Vue3 + Vite + TypeScript + Element-Plus 的后台管理模板 " />
-    <meta
-      name="keywords"
-      content="vue,element-plus,typescript,vue-element-admin,vue3-element-admin"
-    />
-    <title>vue3-element-admin</title>
-  </head>
+<!DOCTYPE html>
+<html lang="en" dir="ltr" >
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BM Pure</title>
 
-  <body>
-    <div id="app">
-      <div class="loading-container">
-        <div class="loading-spinner">
-          <div class="loading-bar"></div>
-          <div class="loading-bar"></div>
-          <div class="loading-bar"></div>
-        </div>
-      </div>
-    </div>
-  </body>
-  <script type="module" src="/src/main.ts"></script>
-
+  <link href="/css/boost-pfs-init.css" rel="stylesheet" type="text/css" >
+  <link href="/css/theme.min.css" rel="stylesheet" type="text/css" >
+  <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css"  />
+  <link href="/css/fancybox.min.css" rel="stylesheet" type="text/css"  />
+  <link href="/css/flickity.min.css" rel="stylesheet">
+  <link href="/css/boost-pfs-custom.css" rel="stylesheet" type="text/css" >
+  <link href="/css/jsc-resets-styles.css" rel="stylesheet" type="text/css">
+  <link href="/css/boost-pfs-general.css" rel="stylesheet" type="text/css">
+  <link href="/css/section-slideshow.min.css" rel="stylesheet" type="text/css">
+  <link href="/css/section-featured-collection.css" rel="stylesheet" type="text/css">
   <style>
-    html,
-    body,
-    #app {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    button{
+      text-transform: none !important;
+    }
+
+    html {
+      box-sizing: border-box;
+      background-color: var(--body-color);
       height: 100%;
+      margin: 0;
+      text-transform: none !important;
     }
 
-    .loading-container {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      align-items: center;
-      justify-content: center;
+    body {
+
+      background-color: var(--body-color);
+      min-height: 100%;
+      margin: 0;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      grid-template-columns: 100%;
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 200;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-ExtraLight'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-ExtraLight.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-ExtraLight.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-ExtraLight.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-ExtraLight.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 300;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-Light'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-Light.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-Light.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-Light.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-Light.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-Regular'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-Regular.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-Regular.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-Regular.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-Regular.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 600;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-Semibold'), local('Source Sans Pro Semibold'), url('/fonts/EOT/SourceSansPro-Semibold.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-Semibold.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-Semibold.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-Semibold.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 700;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-Bold'), local('Source Sans Pro Bold'), url('/fonts/EOT/SourceSansPro-Bold.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-Bold.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-Bold.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-Bold.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 900;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-Black'), local('Source Sans Pro Black'), url('/fonts/EOT/SourceSansPro-Black.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-Black.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-Black.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-Black.ttf') format('truetype');
+    }
+    /* Source Sans Pro (Italic package) @font-face kit */
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 200;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-ExtraLightIt'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-ExtraLightIt.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-ExtraLightIt.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-ExtraLightIt.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-ExtraLightIt.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 300;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-LightIt'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-LightIt.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-LightIt.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-LightIt.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-LightIt.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 400;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-It'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-It.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-It.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-It.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-It.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 600;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-SemiboldIt'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-SemiboldIt.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-SemiboldIt.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-SemiboldIt.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-SemiboldIt.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 700;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-BoldIt'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-BoldIt.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-BoldIt.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-BoldIt.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-BoldIt.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 900;
+      font-stretch: normal;
+
+      src: local('SourceSansPro-BlackIt'), local('Source Sans Pro'), url('/fonts/EOT/SourceSansPro-BlackIt.eot') format('embedded-opentype'), url('/fonts/WOFF/OTF/SourceSansPro-BlackIt.otf.woff') format('woff'), url('/fonts/OTF/SourceSansPro-BlackIt.otf') format('opentype'), url('/fonts/TTF/SourceSansPro-BlackIt.ttf') format('truetype');
     }
 
-    .loading-spinner {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      justify-content: center;
-      height: 40px;
+
+    .el-input {
+      --el-input-text-color: var(--el-text-color-regular);
+      --el-input-border: transparent;
+      --el-input-hover-border: var(--el-border-color-hover);
+      --el-input-focus-border: var(--el-color-primary);
+      --el-input-transparent-border: 0 0 0 0px transparent inset;
+      --el-input-border-color: var(--el-border-color);
+      --el-input-border-radius: var(--el-border-radius-base);
+      --el-input-bg-color: var(--el-fill-color-blank);
+      --el-input-icon-color: var(--el-text-color-placeholder);
+      --el-input-placeholder-color: var(--el-text-color-placeholder);
+      --el-input-hover-border-color: var(--el-border-color-hover);
+      --el-input-clear-hover-color: var(--el-text-color-secondary);
+      --el-input-focus-border-color: var(--el-color-primary);
+      --el-input-width: 100%;
     }
 
-    .loading-bar {
-      width: 4px;
-      height: 24px;
-      background-color: #498cff;
-      border-radius: 2px;
-      animation: loading-animation 1.2s ease-in-out infinite;
-    }
+    /*============================================================================
+      #General Variables
+    ==============================================================================*/
 
-    .loading-bar:nth-child(1) {
-      animation-delay: 0s;
-    }
+    :root {
+      --el-color-primary: green;
 
-    .loading-bar:nth-child(2) {
-      animation-delay: 0.2s;
-    }
+      --font-weight-normal: 300;
+      --font-weight-bold: 400;
+      --font-weight-header-bold: 700;
 
-    .loading-bar:nth-child(3) {
-      animation-delay: 0.4s;
-    }
+      --header-font-stack: "Source Sans Pro", sans-serif;
+      --header-font-weight: 400;
+      --header-font-style: normal;
+      --header-text-size: 20;
+      --header-text-size-px: 20px;
 
-    @keyframes loading-animation {
-      0% {
-        opacity: 0.3;
-        transform: scaleY(0.5);
-      }
+      --header-font-case: normal;
+      --header-font-size: 13;
+      --header-font-size-px: 13px;
 
-      50% {
-        opacity: 1;
-        transform: scaleY(1.2);
-      }
+      --heading-spacing: 1px;
+      --heading-font-case: normal;
+      --heading-font-stack: FontDrop;
 
-      100% {
-        opacity: 0.3;
-        transform: scaleY(0.5);
-      }
+      --body-font-stack: "Source Sans Pro", sans-serif;
+      --body-font-weight: 300;
+      --body-font-style: normal;
+
+      --navigation-font-stack: "Source Sans Pro", sans-serif;
+      --navigation-font-weight: 600;
+      --navigation-font-style: normal;
+
+      --base-font-size-int: 15;
+      --base-font-size: 15px;
+
+      --body-font-size-12-to-em: 0.8em;
+      --body-font-size-14-to-em: 0.93em;
+      --body-font-size-16-to-em: 1.07em;
+      --body-font-size-18-to-em: 1.2em;
+      --body-font-size-20-to-em: 1.33em;
+      --body-font-size-22-to-em: 1.47em;
+      --body-font-size-24-to-em: 1.6em;
+      --body-font-size-28-to-em: 1.87em;
+      --body-font-size-36-to-em: 2.4em;
+
+      --sale-badge-color: #f26c4f;
+      --sold-out-badge-color: #000;
+      --badge-font-color: #fff;
+      --el-color-primary:#b89a68;
+      --primary-btn-text-color: #ffffff;
+      --primary-btn-bg-color: #b89a68;
+      --primary-btn-bg-color-lighten50: #ffffff;
+      --primary-btn-bg-color-opacity50: rgba(147, 198, 219, 0.5);
+      --primary-btn-bg-hover-color: #4e4e4e;
+      --primary-btn-text-hover-color: #ffffff;
+
+      --button-text-case: none;
+      --button-font-size: 12;
+      --button-font-size-px: 12px;
+
+      --secondary-btn-text-color: #fff;
+      --secondary-btn-bg-color: #818181;
+      --secondary-btn-bg-color-lighten: #b4b4b4;
+      --secondary-btn-bg-hover-color: #4e4e4e;
+      --secondary-btn-bg-text-hover-color: #fff;
+
+
+
+
+      --alt-btn-font-style: normal;
+      --alt-btn-font-weight: 400;
+
+
+      --text-color: #333;
+      --text-color-lighten5: #404040;
+      --text-color-lighten70: #e6e6e6;
+      --text-color-transparent05: rgba(51, 51, 51, 0.05);
+      --text-color-transparent15: rgba(51, 51, 51, 0.15);
+      --text-color-transparent5: rgba(51, 51, 51, 0.5);
+      --text-color-transparent6: rgba(51, 51, 51, 0.6);
+      --text-color-transparent7: rgba(51, 51, 51, 0.7);
+      --text-color-transparent8: rgba(51, 51, 51, 0.8);
+
+      --product-page-font-size: 18;
+      --product-page-font-size-px: 18px;
+      --product-page-font-case: normal;
+
+
+      --product-page-font-weight: 500;
+
+
+      --link-color: #333;
+      --on-sale-color: #f26c4f;
+
+      --body-color: #fff;
+      --body-color-darken10: #e6e6e6;
+      --body-color-transparent00: rgba(255, 255, 255, 0);
+      --body-color-transparent90: rgba(255, 255, 255, 0.9);
+
+      --body-secondary-color: #f8f8f8;
+      --body-secondary-color-transparent00: rgba(248, 248, 248, 0);
+      --body-secondary-color-darken05: #ebebeb;
+
+      --color-primary-background: #fff;
+      --color-primary-background-rgb: 255, 255, 255;
+      --color-secondary-background: #f8f8f8;
+
+      --cart-background-color: #f68e56;
+
+      --border-color: rgba(51, 51, 51, 0.5);
+      --border-color-darken10: #ffffff;
+
+      --header-color: #b89a68;
+      --header-color-darken5: #8ab6c9;
+      --header-color-lighten5: #f1d2a3;
+
+      --header-border-color: rgba(0,0,0,0);
+
+      --announcement-text-size: 14px;
+      --announcement-text-spacing: 1px;
+      --announcement-text-case: none;
+
+
+      --announcement-font-style: normal;
+      --announcement-font-weight: 400;
+
+
+      --logo-font-size: 18px;
+
+      --overlay-header-text-color: #fff;
+      --nav-text-color: #ffffff;
+      --nav-text-hover: #4e4e4e;
+
+      --color-scheme-light-background: #f1f2f3;
+      --color-scheme-light-background-lighten5: #ffffff;
+      --color-scheme-light-text: #414141;
+      --color-scheme-light-text-transparent60: rgba(65, 65, 65, 0.6);
+
+      --color-scheme-feature-background: #627647;
+      --color-scheme-feature-background-lighten5: #6f8651;
+      --color-scheme-feature-text: #fff;
+      --color-scheme-feature-text-transparent60: rgba(255, 255, 255, 0.6);
+
+      --homepage-sections-accent-secondary-color-transparent60: rgba(255, 255, 255, 0.6);
+
+      --color-scheme-dark-background: #333;
+      --color-scheme-dark-text: #fff;
+      --color-scheme-dark-text-transparent60: rgba(255, 255, 255, 0.6);
+
+      --filter-bg-color: rgba(51, 51, 51, 0.1);
+
+      --color-footer-bg: #e6f6fe;
+      --color-footer-bg-darken5: #cdedfd;
+      --color-footer-text: #636363;
+      --color-footer-text-darken10: #4a4a4a;
+      --color-footer-border: rgba(99, 99, 99, 0.1);
+
+      --popup-text-color: #000;
+      --popup-text-color-lighten10: #1a1a1a;
+      --popup-bg-color: #fff;
+
+      --menu-drawer-color: #b89a68;
+      --menu-drawer-color-darken5: #b89a68;
+      --menu-drawer-text-color: #ffffff;
+      --menu-drawer-border-color: rgba(255, 255, 255, 0.1);
+      --menu-drawer-text-hover-color: #4e4e4e;
+
+      --cart-drawer-color: #fff;
+      --cart-drawer-text-color: #333;
+      --cart-drawer-text-color-lighten10: #4d4d4d;
+      --cart-drawer-border-color: rgba(51, 51, 51, 0.5);
+
+      --fancybox-overlay: url('/images/fancybox_overlay.png');
+
+      /* Shop Pay Installments variables */
+      --color-body: #f8f8f8;
+      --color-bg: #f8f8f8;
     }
   </style>
+</head>
+<body class="customer-logged-in template-collection animations-disabled loaded swym-ready swym-buttons-loaded">
+<div id="app"></div>
+<script type="module" src="/src/main.ts"></script>
+</body>
 </html>

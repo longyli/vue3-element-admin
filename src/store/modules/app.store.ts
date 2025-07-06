@@ -21,17 +21,19 @@ export const useAppStore = defineStore("app", () => {
     withoutAnimation: false,
   });
 
+  const notice = useStorage<string[]>('notice', []);
+
   // 顶部菜单激活路径
   const activeTopMenuPath = useStorage("activeTopMenuPath", "");
-
+  const shareId = useStorage("share_id", "");
   /**
    * 根据语言标识读取对应的语言包
    */
   const locale = computed(() => {
-    if (language?.value == "en") {
-      return en;
-    } else {
+    if (language?.value == "zh-cn") {
       return zhCn;
+    } else {
+      return en;
     }
   });
 
@@ -66,6 +68,13 @@ export const useAppStore = defineStore("app", () => {
   function changeSize(val: string) {
     size.value = val;
   }
+
+  function changeNotice(val) {
+    notice.value.splice(0, notice.value.length);
+    notice.value.push(...val)
+
+  }
+
   /**
    * 切换语言
    *
@@ -73,6 +82,9 @@ export const useAppStore = defineStore("app", () => {
    */
   function changeLanguage(val: string) {
     language.value = val;
+  }
+  function changeShareId(val: string) {
+    shareId.value = val;
   }
   /**
    * 混合模式顶部切换
@@ -94,6 +106,10 @@ export const useAppStore = defineStore("app", () => {
     closeSideBar,
     openSideBar,
     activeTopMenuPath,
+    notice,
+    changeNotice,
+    shareId,
+    changeShareId
   };
 });
 

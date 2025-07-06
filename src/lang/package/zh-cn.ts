@@ -18,8 +18,11 @@ export default {
     rememberMe: "记住我",
     forgetPassword: "忘记密码？",
     message: {
+      telephone: {
+        required: "请输入手机号",
+      },
       username: {
-        required: "请输入用户名",
+        required: "请输入姓名",
       },
       password: {
         required: "请输入密码",

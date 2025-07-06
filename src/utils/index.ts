@@ -1,3 +1,4 @@
+import router from "@/router";
 /**
  * Check if an element has a class
  * @param {HTMLElement} ele
@@ -56,3 +57,31 @@ export function formatGrowthRate(growthRate: number) {
     .replace(/\.?0+$/, "");
   return formattedRate + "%";
 }
+
+export function formatCurrency(value: number) {
+  if (typeof value !== 'number') {
+    return value;
+  }
+
+  return  value.toFixed(2);
+}
+
+
+export function needAuthLogin() {
+  ElMessageBox.confirm(
+    'Please log in first.',
+    'Warning',
+    {
+      confirmButtonText: 'Login',
+      cancelButtonText: 'Cancel',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+        router.push("/ulink_comshop/pages/user/login")
+    })
+    .catch(() => {
+      router.push("/ulink_comshop/pages/index/index")
+    })
+}
+

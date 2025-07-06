@@ -1,4 +1,3 @@
-import { useDictStoreHook } from "@/store/modules/dict.store";
 import { useStomp } from "../core/useStomp";
 import { IMessage } from "@stomp/stompjs";
 import { ref } from "vue";
@@ -20,7 +19,6 @@ let instance: ReturnType<typeof createDictSyncHook> | null = null;
  * 负责监听后端字典变更并同步到前端
  */
 function createDictSyncHook() {
-  const dictStore = useDictStoreHook();
 
   // 使用现有的useStomp，配置适合字典场景的重连参数
   const { isConnected, connect, subscribe, unsubscribe, disconnect } = useStomp({

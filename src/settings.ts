@@ -25,7 +25,7 @@ const defaultSettings: AppSettings = {
   // 语言
   language: LanguageEnum.ZH_CN,
   // 主题颜色
-  themeColor: "#4080FF",
+  themeColor: "#56391d",
   // 是否开启水印
   watermarkEnabled: false,
   // 水印内容

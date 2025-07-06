@@ -1,47 +1,83 @@
 import type { App } from "vue";
-import { createRouter, createWebHashHistory, type RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 
 export const Layout = () => import("@/layout/index.vue");
 
 // 静态路由
 export const constantRoutes: RouteRecordRaw[] = [
   {
-    path: "/redirect",
+    path: '/ulink_comshop/pages/order/placeOrder',
+    name: 'placeOrder',
+    component: () => import('@/views/order/placeOrder.vue'),
+    meta: { title: '提交订单' }
+  },
+  {
+    path: '/ulink_comshop/pages',
     component: Layout,
     meta: { hidden: true },
     children: [
       {
-        path: "/redirect/:path(.*)",
-        component: () => import("@/views/redirect/index.vue"),
+        path: 'index/index',
+        component: () => import('@/views/home/index.vue'),
+        name: '/index/index',
+        meta: { title: 'My Account' }
       },
-    ],
-  },
+      {
+        path: 'index/search',
+        component: () => import('@/views/home/search/index.vue'),
+        name: 'search',
+        meta: { title: 'Search' }
+      },
+      {
+        path: 'type/index',
+        component: () => import('@/views/type/details.vue'),
+        name: 'typeIndex',
+        meta: { title: '分类' }
+      },
+      {
+        path: 'type/details',
+        component: () => import('@/views/type/details.vue'),
+        name: 'typeDetails',
+        meta: { title: '分类' }
+      },
+      {
+        path: 'user/me',
+        component: () => import('@/views/account/index.vue'),
+        name: 'Account',
+        meta: { title: 'My Account' }
+      },
+      {
+        path: 'user/login',
+        component: () => import('@/views/account/login.vue'),
+        name: 'Login',
+        meta: { title: '登录' }
+      },
+      {
+        path: 'user/register',
+        component: () => import('@/views/account/register.vue'),
+        name: 'Register',
+        meta: { title: '注册新用户' }
+      },
+      {
+        path: 'order/shopCart',
+        component: () => import('@/views/order/shopCart.vue'),
+        name: 'shopCart',
+        meta: { title: '购物车' }
+      },
 
-  {
-    path: "/login",
-    component: () => import("@/views/login/index.vue"),
-    meta: { hidden: true },
+      {
+        path: 'goods/goodsDetail',
+        component: () => import('@/views/goods/goodsDetail/index.vue'),
+        name: 'goodsDetail',
+        meta: { title: '商品详情' }
+      },
+    ]
   },
-
   {
     path: "/",
-    name: "/",
     component: Layout,
-    redirect: "/dashboard",
+    redirect: "/ulink_comshop/pages/index/index",
     children: [
-      {
-        path: "dashboard",
-        component: () => import("@/views/dashboard/index.vue"),
-        // 用于 keep-alive 功能，需要与 SFC 中自动推导或显式声明的组件名称一致
-        // 参考文档: https://cn.vuejs.org/guide/built-ins/keep-alive.html#include-exclude
-        name: "Dashboard",
-        meta: {
-          title: "dashboard",
-          icon: "homepage",
-          affix: true,
-          keepAlive: true,
-        },
-      },
       {
         path: "401",
         component: () => import("@/views/error/401.vue"),
@@ -53,26 +89,29 @@ export const constantRoutes: RouteRecordRaw[] = [
         meta: { hidden: true },
       },
       {
-        path: "profile",
-        name: "Profile",
-        component: () => import("@/views/profile/index.vue"),
-        meta: { title: "个人中心", icon: "user", hidden: true },
-      },
-      {
-        path: "my-notice",
-        name: "MyNotice",
-        component: () => import("@/views/system/notice/components/MyNotice.vue"),
-        meta: { title: "我的通知", icon: "user", hidden: true },
+        path: "test",
+        component: () => import("@/views/test/SwiperDemo.vue"),
+        meta: { hidden: true },
       },
     ],
   },
+  {
+    path: '/goods',
+    component: Layout,
+    meta: { hidden: true },
+    redirect: '/account/index',
+    children: [
+
+
+    ]
+  }
 ];
 
 /**
  * 创建路由
  */
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory("/demo/"),
   routes: constantRoutes,
   // 刷新时，滚动条位置还原
   scrollBehavior: () => ({ left: 0, top: 0 }),

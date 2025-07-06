@@ -1,6 +1,7 @@
 import request from "@/utils/request";
+import { LoginResult } from "@/api/auth.api";
+import { getAccessToken } from "@/utils/auth";
 
-const USER_BASE_URL = "/api/v1/users";
 
 const UserAPI = {
   /**
@@ -9,9 +10,12 @@ const UserAPI = {
    * @returns 登录用户昵称、头像信息，包括角色和权限
    */
   getInfo() {
-    return request<any, UserInfo>({
-      url: `${USER_BASE_URL}/me`,
+    return request<any, LoginResult>({
+      url: `wxapp.php?controller=user.get_user_info`,
       method: "get",
+      params: {
+        'token':getAccessToken(),
+      },
     });
   },
 

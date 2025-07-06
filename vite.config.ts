@@ -21,8 +21,11 @@ const pathSrc = resolve(__dirname, "src");
 
 // Vite配置  https://cn.vitejs.dev/config
 export default defineConfig(({ mode }: ConfigEnv) => {
+
   const env = loadEnv(mode, process.cwd());
   return {
+    // 设置 base 选项为子目录名称
+    base: '/demo',
     resolve: {
       alias: {
         "@": pathSrc,
@@ -37,20 +40,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         },
       },
     },
-    server: {
-      host: "0.0.0.0",
-      port: +env.VITE_APP_PORT,
-      open: true,
-      proxy: {
-        // 代理 /dev-api 的请求
-        [env.VITE_APP_BASE_API]: {
-          changeOrigin: true,
-          // 代理目标地址：https://api.youlai.tech
-          target: env.VITE_APP_API_URL,
-          rewrite: (path) => path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
-        },
-      },
-    },
+
     plugins: [
       vue(),
       env.VITE_MOCK_DEV_SERVER === "true" ? mockDevServerPlugin() : null,

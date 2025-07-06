@@ -1,11 +1,9 @@
 import { store } from "@/store";
-import { usePermissionStoreHook } from "@/store/modules/permission.store";
-import { useDictStoreHook } from "@/store/modules/dict.store";
 
 import AuthAPI, { type LoginFormData } from "@/api/auth.api";
 import UserAPI, { type UserInfo } from "@/api/system/user.api";
 
-import { setAccessToken, setRefreshToken, getRefreshToken, clearToken } from "@/utils/auth";
+import { setAccessToken, setRefreshToken, getRefreshToken, clearToken, getAccessToken } from "@/utils/auth";
 
 export const useUserStore = defineStore("user", () => {
   const userInfo = useStorage<UserInfo>("userInfo", {} as UserInfo);
@@ -20,15 +18,39 @@ export const useUserStore = defineStore("user", () => {
     return new Promise<void>((resolve, reject) => {
       AuthAPI.login(LoginFormData)
         .then((data) => {
-          const { accessToken, refreshToken } = data;
-          setAccessToken(accessToken); // eyJhbGciOiJIUzI1NiJ9.xxx.xxx
-          setRefreshToken(refreshToken);
-          resolve();
+
+          if(data['member_id'] > 0){
+            const { token } = data;
+            setAccessToken(token); // eyJhbGciOiJIUzI1NiJ9.xxx.xxx
+            resolve();
+          }else{
+            reject("Login failed: Incorrect mobile phone number or password");
+          }
+
+
         })
         .catch((error) => {
           reject(error);
         });
     });
+  }
+
+  function check_login() {
+    return new Promise<void>((resolve, reject) => {
+      const token = getAccessToken();
+      AuthAPI.check_login(token).then((res)=>{
+        if(res['code'] ==0 && res['data']){
+          resolve(true);
+        }else{
+          clearToken()
+          reject(false);
+        }
+      }).catch((error) => {
+        clearToken()
+        reject(false);
+      });
+    })
+
   }
 
   /**
@@ -37,14 +59,16 @@ export const useUserStore = defineStore("user", () => {
    * @returns {UserInfo} 用户信息
    */
   function getUserInfo() {
-    return new Promise<UserInfo>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       UserAPI.getInfo()
         .then((data) => {
-          if (!data) {
+          console.log(data)
+          if (data.code!=0) {
             reject("Verification failed, please Login again.");
             return;
           }
-          Object.assign(userInfo.value, { ...data });
+
+          Object.assign(userInfo.value, { ...data.data });
           resolve(data);
         })
         .catch((error) => {
@@ -64,6 +88,7 @@ export const useUserStore = defineStore("user", () => {
           resolve();
         })
         .catch((error) => {
+          clearSessionAndCache();
           reject(error);
         });
     });
@@ -95,8 +120,6 @@ export const useUserStore = defineStore("user", () => {
   function clearSessionAndCache() {
     return new Promise<void>((resolve) => {
       clearToken();
-      usePermissionStoreHook().resetRouter();
-      useDictStoreHook().clearDictCache();
       userInfo.value = {} as UserInfo;
       resolve();
     });
@@ -109,6 +132,7 @@ export const useUserStore = defineStore("user", () => {
     logout,
     clearSessionAndCache,
     refreshToken,
+    check_login
   };
 });
 

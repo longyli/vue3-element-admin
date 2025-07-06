@@ -25,6 +25,9 @@ export const useSettingsStore = defineStore("setting", () => {
     defaultSettings.watermarkEnabled
   );
 
+
+
+
   // 主题
   const themeColor = useStorage<string>("themeColor", defaultSettings.themeColor);
   const theme = useStorage<ThemeMode>("theme", defaultSettings.theme);

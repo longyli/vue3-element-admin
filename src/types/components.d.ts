@@ -67,7 +67,6 @@ declare module "vue" {
     FileUpload: (typeof import("./../components/Upload/FileUpload.vue"))["default"];
     Form: (typeof import("./../components/CURD/Form.vue"))["default"];
     Fullscreen: (typeof import("./../components/Fullscreen/index.vue"))["default"];
-    GithubCorner: (typeof import("./../components/GithubCorner/index.vue"))["default"];
     Hamburger: (typeof import("./../components/Hamburger/index.vue"))["default"];
     IconSelect: (typeof import("./../components/IconSelect/index.vue"))["default"];
     LangSelect: (typeof import("./../components/LangSelect/index.vue"))["default"];

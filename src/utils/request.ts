@@ -15,13 +15,26 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const accessToken = getAccessToken();
+    /*const accessToken = getAccessToken();
     // 如果 Authorization 设置为 no-auth，则不携带 Token
     if (config.headers.Authorization !== "no-auth" && accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     } else {
       delete config.headers.Authorization;
+    }*/
+
+    config.params = {
+      i: 3,
+      t: 0,
+      v: '12.4.0',
+      from: 'wxapp',
+      c: 'entry',
+      a: 'wxapp',
+      do: 'index',
+      m: 'lionfish_comshop',
+      ...config.params
     }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -29,8 +42,9 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response: AxiosResponse) => {
+    return response.data;
     // 如果响应是二进制流，则直接返回，用于下载文件、Excel 导出等
-    if (response.config.responseType === "blob") {
+    /*if (response.config.responseType === "blob") {
       return response;
     }
     const { code, data, msg } = response.data;
@@ -38,7 +52,7 @@ service.interceptors.response.use(
       return data;
     }
     ElMessage.error(msg || "系统出错");
-    return Promise.reject(new Error(msg || "Error"));
+    return Promise.reject(new Error(msg || "Error"));*/
   },
   async (error) => {
     console.error("request error", error); // for debug
